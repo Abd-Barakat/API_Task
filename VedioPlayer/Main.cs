@@ -19,7 +19,7 @@ namespace AudioPlayer
     {
 
 
-        private string [] Videos;
+        private string [] Videos;//
         private WMPLib.IWMPPlaylist PlayList;
         //[DllImport("winmm.dll", EntryPoint = "mciSendStringA", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         //private static extern int mciSendString(string lpstrCommand, string lpstrReturnString, int uReturnLength, int hwndCallback);
