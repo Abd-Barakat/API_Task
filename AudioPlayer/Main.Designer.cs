@@ -1,6 +1,6 @@
 ﻿namespace AudioPlayer
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ControlPanel = new System.Windows.Forms.Panel();
             this.SongBar = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.EndLabel = new System.Windows.Forms.Label();
+            this.StartLabel = new System.Windows.Forms.Label();
             this.SpeakerImage = new System.Windows.Forms.PictureBox();
             this.VolumeBar = new System.Windows.Forms.TrackBar();
             this.NextImage = new System.Windows.Forms.PictureBox();
@@ -52,8 +53,8 @@
             // 
             this.ControlPanel.BackColor = System.Drawing.Color.White;
             this.ControlPanel.Controls.Add(this.SongBar);
-            this.ControlPanel.Controls.Add(this.label2);
-            this.ControlPanel.Controls.Add(this.label1);
+            this.ControlPanel.Controls.Add(this.EndLabel);
+            this.ControlPanel.Controls.Add(this.StartLabel);
             this.ControlPanel.Controls.Add(this.SpeakerImage);
             this.ControlPanel.Controls.Add(this.VolumeBar);
             this.ControlPanel.Controls.Add(this.NextImage);
@@ -76,31 +77,31 @@
             this.SongBar.Size = new System.Drawing.Size(498, 25);
             this.SongBar.TabIndex = 8;
             // 
-            // label2
+            // EndLabel
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.EndLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(557, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 25);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "00:00";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.EndLabel.Location = new System.Drawing.Point(557, 9);
+            this.EndLabel.Name = "EndLabel";
+            this.EndLabel.Size = new System.Drawing.Size(35, 25);
+            this.EndLabel.TabIndex = 7;
+            this.EndLabel.Text = "00:00";
+            this.EndLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // StartLabel
             // 
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 25);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "00:00";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.StartLabel.Location = new System.Drawing.Point(12, 9);
+            this.StartLabel.Name = "StartLabel";
+            this.StartLabel.Size = new System.Drawing.Size(35, 25);
+            this.StartLabel.TabIndex = 6;
+            this.StartLabel.Text = "00:00";
+            this.StartLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SpeakerImage
             // 
             this.SpeakerImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpeakerImage.Image = global::AudioPlayer.Properties.Resources.speaker_half;
+            this.SpeakerImage.Image = ((System.Drawing.Image)(resources.GetObject("SpeakerImage.Image")));
             this.SpeakerImage.Location = new System.Drawing.Point(482, 52);
             this.SpeakerImage.Name = "SpeakerImage";
             this.SpeakerImage.Size = new System.Drawing.Size(25, 25);
@@ -142,6 +143,7 @@
             this.StopImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.StopImage.TabIndex = 2;
             this.StopImage.TabStop = false;
+            this.StopImage.Click += new System.EventHandler(this.StopImage_Click);
             // 
             // PreviousImage
             // 
@@ -152,6 +154,7 @@
             this.PreviousImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PreviousImage.TabIndex = 1;
             this.PreviousImage.TabStop = false;
+            this.PreviousImage.Click += new System.EventHandler(this.PreviousImage_Click);
             // 
             // PlayPauseImage
             // 
@@ -164,7 +167,7 @@
             this.PlayPauseImage.TabStop = false;
             this.PlayPauseImage.Click += new System.EventHandler(this.PlayPauseImage_Click);
             // 
-            // Main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -172,7 +175,7 @@
             this.ClientSize = new System.Drawing.Size(613, 345);
             this.Controls.Add(this.ControlPanel);
             this.MinimumSize = new System.Drawing.Size(323, 130);
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "Music Player";
             this.ControlPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SongBar)).EndInit();
@@ -195,8 +198,8 @@
         private System.Windows.Forms.PictureBox SpeakerImage;
         private System.Windows.Forms.TrackBar VolumeBar;
         private System.Windows.Forms.TrackBar SongBar;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label EndLabel;
+        private System.Windows.Forms.Label StartLabel;
     }
 }
 
