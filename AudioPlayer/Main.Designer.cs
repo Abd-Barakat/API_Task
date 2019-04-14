@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ControlPanel = new System.Windows.Forms.Panel();
             this.SongBar = new System.Windows.Forms.TrackBar();
@@ -39,6 +40,8 @@
             this.StopImage = new System.Windows.Forms.PictureBox();
             this.PreviousImage = new System.Windows.Forms.PictureBox();
             this.PlayPauseImage = new System.Windows.Forms.PictureBox();
+            this.musicTimer = new System.Windows.Forms.Timer(this.components);
+            this.PlayList = new System.Windows.Forms.ListBox();
             this.ControlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SongBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpeakerImage)).BeginInit();
@@ -63,6 +66,7 @@
             this.ControlPanel.Controls.Add(this.PlayPauseImage);
             this.ControlPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ControlPanel.Location = new System.Drawing.Point(0, 255);
+            this.ControlPanel.Margin = new System.Windows.Forms.Padding(0);
             this.ControlPanel.Name = "ControlPanel";
             this.ControlPanel.Size = new System.Drawing.Size(613, 90);
             this.ControlPanel.TabIndex = 1;
@@ -72,10 +76,16 @@
             this.SongBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SongBar.AutoSize = false;
+            this.SongBar.LargeChange = 2000;
             this.SongBar.Location = new System.Drawing.Point(53, 9);
+            this.SongBar.Maximum = 20000;
             this.SongBar.Name = "SongBar";
             this.SongBar.Size = new System.Drawing.Size(498, 25);
             this.SongBar.TabIndex = 8;
+            this.SongBar.TickFrequency = 0;
+            this.SongBar.Scroll += new System.EventHandler(this.SongBar_Scroll);
+            this.SongBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SongBar_MouseDown);
+            this.SongBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SongBar_MouseUp);
             // 
             // EndLabel
             // 
@@ -105,7 +115,7 @@
             this.SpeakerImage.Location = new System.Drawing.Point(482, 52);
             this.SpeakerImage.Name = "SpeakerImage";
             this.SpeakerImage.Size = new System.Drawing.Size(25, 25);
-            this.SpeakerImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.SpeakerImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SpeakerImage.TabIndex = 5;
             this.SpeakerImage.TabStop = false;
             this.SpeakerImage.Click += new System.EventHandler(this.SpeakerImage_Click);
@@ -133,10 +143,11 @@
             this.NextImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.NextImage.TabIndex = 3;
             this.NextImage.TabStop = false;
+            this.NextImage.Click += new System.EventHandler(this.NextImage_Click);
             // 
             // StopImage
             // 
-            this.StopImage.Image = global::AudioPlayer.Properties.Resources.Stop;
+            this.StopImage.Image = global::AudioPlayer.Properties.Resources.Stop1;
             this.StopImage.Location = new System.Drawing.Point(92, 52);
             this.StopImage.Name = "StopImage";
             this.StopImage.Size = new System.Drawing.Size(25, 25);
@@ -151,7 +162,7 @@
             this.PreviousImage.Location = new System.Drawing.Point(61, 52);
             this.PreviousImage.Name = "PreviousImage";
             this.PreviousImage.Size = new System.Drawing.Size(25, 25);
-            this.PreviousImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PreviousImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PreviousImage.TabIndex = 1;
             this.PreviousImage.TabStop = false;
             this.PreviousImage.Click += new System.EventHandler(this.PreviousImage_Click);
@@ -159,7 +170,7 @@
             // PlayPauseImage
             // 
             this.PlayPauseImage.Image = global::AudioPlayer.Properties.Resources.Play;
-            this.PlayPauseImage.Location = new System.Drawing.Point(7, 47);
+            this.PlayPauseImage.Location = new System.Drawing.Point(12, 47);
             this.PlayPauseImage.Name = "PlayPauseImage";
             this.PlayPauseImage.Size = new System.Drawing.Size(35, 35);
             this.PlayPauseImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -167,12 +178,30 @@
             this.PlayPauseImage.TabStop = false;
             this.PlayPauseImage.Click += new System.EventHandler(this.PlayPauseImage_Click);
             // 
+            // musicTimer
+            // 
+            this.musicTimer.Interval = 1;
+            this.musicTimer.Tick += new System.EventHandler(this.musicTimer_Tick);
+            // 
+            // PlayList
+            // 
+            this.PlayList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayList.Dock = System.Windows.Forms.DockStyle.Right;
+            this.PlayList.FormattingEnabled = true;
+            this.PlayList.Location = new System.Drawing.Point(450, 0);
+            this.PlayList.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayList.Name = "PlayList";
+            this.PlayList.Size = new System.Drawing.Size(163, 255);
+            this.PlayList.TabIndex = 9;
+            this.PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(613, 345);
+            this.Controls.Add(this.PlayList);
             this.Controls.Add(this.ControlPanel);
             this.MinimumSize = new System.Drawing.Size(323, 130);
             this.Name = "MainForm";
@@ -200,6 +229,8 @@
         private System.Windows.Forms.TrackBar SongBar;
         private System.Windows.Forms.Label EndLabel;
         private System.Windows.Forms.Label StartLabel;
+        private System.Windows.Forms.Timer musicTimer;
+        private System.Windows.Forms.ListBox PlayList;
     }
 }
 
