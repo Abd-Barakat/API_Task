@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AudioPlayer.Properties
+namespace VideoPlayer.Properties
 {
 
 
