@@ -10,11 +10,14 @@ namespace AudioPlayer
     class AudioSession
     {
         private IAudioSessionControl2 SessionControl2;
+        private Process process;
+
         public AudioSession(IAudioSessionControl2 audio)
         {
             SessionControl2 = audio;
         }
-        public Process process
+
+        public Process Process
         {
 
             get
@@ -23,20 +26,17 @@ namespace AudioPlayer
                 {
                     int id;
                     SessionControl2.GetProcessId(out id);
-                    if (id != 0)
+                    if (id != 0 && process == null)
                     {
-                        return Process.GetProcessById(id);
-                    }
-                    else
-                    {
-                        return null;
+                        process = Process.GetProcessById(id);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception)//windows 7 sometime return invalid id for process so no process found for this id
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
+                    // do nothing 
+
                 }
+                return process;
             }
         }
 

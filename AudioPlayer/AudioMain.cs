@@ -89,9 +89,9 @@ namespace AudioPlayer
         {
             foreach (AudioSession session in AudioServices.GetAllSessions())
             {
-                if (session.process!=null)
+                if (session.Process!=null)
                 {
-                    if(session.process.ProcessName == "VideoPlayer")
+                    if(session.Process.ProcessName == "VideoPlayer")
                     {
                         session.SetApplicationMute(IsMute);
                     }
